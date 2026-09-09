@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模型页面预览导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        /* 左侧导航栏 */
+        .sidebar {
+            width: 260px;
+            background: #f6f8fa;
+            border-right: 1px solid #d0d7de;
+            overflow-y: auto;
+            padding: 16px 0;
+        }
+        .sidebar h3 {
+            padding: 0 16px 12px;
+            color: #24292f;
+            font-size: 14px;
+            font-weight: 600;
+            border-bottom: 1px solid #d0d7de;
+            margin-bottom: 8px;
+        }
+        .nav-btn {
+            display: block;
+            width: 100%;
+            padding: 10px 16px;
+            text-align: left;
+            background: none;
+            border: none;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            color: #24292f;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover {
+            background: #eaeef2;
+        }
+        .nav-btn.active {
+            background: #ddf4ff;
+            border-left-color: #0969da;
+            color: #0969da;
+            font-weight: 500;
+        }
+        /* 右侧预览区 */
+        .content {
+            flex: 1;
+            position: relative;
+        }
+        #preview-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h3>页面列表</h3>
+    </div>
+    <div class="content">
+        <iframe id="preview-frame" src="" title="页面预览区"></iframe>
+    </div>
+
+    <script>
+        // 所有页面配置，后续新增页面在这里添加即可
+        const pages = [
+            { name: 'AGdsv4flash', file: 'AGdsv4flash.html' },
+            { name: 'AGglm5.3', file: 'AGglm5.3.html' },
+            { name: 'AGopus5', file: 'AGopus5.html' },
+            { name: 'dumate', file: 'dumate.html' },
+            { name: 'gpt5.6solmedium', file: 'gpt5.6solmedium.html' },
+            { name: 'gpt5.6solmediumto4o', file: 'gpt5.6solmediumto4o.html' },
+            { name: 'gpt6astralow', file: 'gpt6astralow.html' },
+            { name: 'hy4', file: 'hy4.html' },
+            { name: 'officialdsv4.1', file: 'officialdsv4.1.html' },
+            { name: 'shangtang glm5.2', file: 'shangtang glm5.2.html' },
+            { name: 'shangtang k3', file: 'shangtang k3.html' },
+            { name: 'shangtang u6.8', file: 'shangtang u6.8.html' },
+            { name: 'shangtang v4pro', file: 'shangtang v4pro.html' }
+        ];
+
+        const sidebar = document.querySelector('.sidebar');
+        const previewFrame = document.getElementById('preview-frame');
+
+        // 批量生成导航按钮
+        pages.forEach((page) => {
+            const btn = document.createElement('button');
+            btn.className = 'nav-btn';
+            btn.textContent = page.name;
+            btn.addEventListener('click', () => {
+                // 切换选中状态
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // 加载对应页面，自动处理文件名中的空格编码
+                previewFrame.src = encodeURI(page.file);
+            });
+            sidebar.appendChild(btn);
+        });
+
+        // 默认加载第一个页面
+        if (pages.length > 0) {
+            document.querySelector('.nav-btn').click();
+        }
+    </script>
+</body>
+</html>
