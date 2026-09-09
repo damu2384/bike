@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pelican Pedal Club</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body { background: #d7f0ed; }
+  .scene { display: block; width: 100%; height: 100svh; min-height: 360px; }
+  .ink { stroke: #294647; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+  .wheel { animation: spin 1.8s linear infinite; }
+  .rear { transform-origin: 390px 535px; }
+  .front { transform-origin: 720px 535px; }
+  .crank { transform-origin: 535px 525px; animation: spin 1.2s linear infinite; }
+  .bob { animation: bob .6s ease-in-out infinite; }
+  .wing { transform-origin: 495px 358px; animation: wing .6s ease-in-out infinite; }
+  .scarf { transform-origin: 577px 295px; animation: flutter .6s ease-in-out infinite alternate; }
+  .leg { animation: pedal 1.2s linear infinite; }
+  .leg-back { animation-delay: -.6s; }
+  .clouds { animation: landscape 65s linear infinite; }
+  .hills { animation: landscape 26s linear infinite; }
+  .plants { animation: landscape 9s linear infinite; }
+  .road { animation: landscape 4s linear infinite; }
+  .blink { transform-origin: 611px 236px; animation: blink 5s infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes bob { 50% { transform: translateY(-5px); } }
+  @keyframes wing { 50% { transform: rotate(-3deg); } }
+  @keyframes flutter { to { transform: rotate(7deg); } }
+  @keyframes landscape { to { transform: translateX(-1200px); } }
+  /* Both feet follow the crank endpoints; opposite legs are half a cycle apart. */
+  @keyframes pedal {
+    0%,100% { transform: translate(25px,0); }
+    12.5% { transform: translate(17.68px,17.68px); }
+    25% { transform: translate(0,25px); }
+    37.5% { transform: translate(-17.68px,17.68px); }
+    50% { transform: translate(-25px,0); }
+    62.5% { transform: translate(-17.68px,-17.68px); }
+    75% { transform: translate(0,-25px); }
+    87.5% { transform: translate(17.68px,-17.68px); }
+  }
+  @keyframes blink {
+    0%,43%,47%,100% { transform: scaleY(1); }
+    45% { transform: scaleY(.08); }
+  }
+</style>
+</head>
+<body>
+<svg class="scene" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="title desc">
+  <title id="title">鹈鹕骑行记</title>
+  <desc id="desc">一只戴着绿色头盔、系着红色围巾的白鹈鹕骑着珊瑚红自行车。双腿交替踩踏，车轮旋转，身体轻轻起伏，云朵、山丘和路边小花向后移动。</desc>
+  <defs>
+    <g id="cloud" fill="#f8fffb">
+      <path d="M0 30C-10 9 12-6 30 6C38-24 81-21 85 9C112-4 133 15 125 30Z"/>
+    </g>
+    <g id="cloud-strip">
+      <use href="#cloud" x="85" y="170"/>
+      <use href="#cloud" x="785" y="103"/>
+      <use href="#cloud" x="1070" y="245" transform="translate(210 48) scale(.8)"/>
+    </g>
+    <g id="hill-strip">
+      <path d="M0 456Q150 311 324 440Q478 336 650 440Q852 283 1058 422Q1130 398 1200 456V630H0Z" fill="#a9d4bc"/>
+      <path d="M0 508Q190 405 395 502Q635 390 825 487Q1056 417 1200 508V630H0Z" fill="#87bca3"/>
+    </g>
+    <g id="flower" stroke="#52775b" stroke-width="3" stroke-linecap="round">
+      <path d="M0 0V24M0 17L-8 10" fill="none"/>
+      <g fill="#fff8e7" stroke="none">
+        <ellipse rx="4" ry="9" cy="-6"/>
+        <ellipse rx="4" ry="9" cy="-6" transform="rotate(72)"/>
+        <ellipse rx="4" ry="9" cy="-6" transform="rotate(144)"/>
+        <ellipse rx="4" ry="9" cy="-6" transform="rotate(216)"/>
+        <ellipse rx="4" ry="9" cy="-6" transform="rotate(288)"/>
+      </g>
+      <circle r="4" fill="#e6b24d" stroke="none"/>
+    </g>
+    <g id="plant-strip">
+      <use href="#flower" x="100" y="574"/>
+      <use href="#flower" x="129" y="583"/>
+      <use href="#flower" x="930" y="576"/>
+      <path d="M265 600l-7-17m7 17 8-21m420 21-9-15m9 15 5-22m405 22-6-17m6 17 9-11" fill="none" stroke="#52775b" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <g id="road-strip" fill="#f6ead3">
+      <rect x="60" y="671" width="105" height="5" rx="2"/>
+      <rect x="360" y="671" width="105" height="5" rx="2"/>
+      <rect x="660" y="671" width="105" height="5" rx="2"/>
+      <rect x="960" y="671" width="105" height="5" rx="2"/>
+    </g>
+    <g id="spokes" fill="none" stroke="#638984" stroke-width="3">
+      <circle r="70" stroke="#f8f3df" stroke-width="6"/>
+      <path d="M-68 0H68M0-68V68M-48-48 48 48M-48 48 48-48M-26-63 26 63M-63-26 63 26M-63 26 63-26M-26 63 26-63"/>
+      <path d="M-30-63A70 70 0 0 1 38-58" stroke="#fff" stroke-width="4"/>
+      <rect x="43" y="-5" width="13" height="10" rx="3" fill="#efbb5a" stroke="none"/>
+    </g>
+  </defs>
+  <path fill="#d7f0ed" d="M0 0H1200V800H0Z"/>
+  <circle cx="932" cy="201" r="55" fill="#f8d77f"/>
+  <g class="clouds"><use href="#cloud-strip"/><use href="#cloud-strip" x="1200"/></g>
+  <g fill="#294647" text-anchor="middle" font-family="Trebuchet MS, Arial, sans-serif">
+    <text x="600" y="79" font-size="13" letter-spacing="0">THE SLOW LANE</text>
+    <text x="600" y="124" font-size="35" font-weight="bold">Pelican Pedal Club</text>
+  </g>
+  <g class="hills"><use href="#hill-strip"/><use href="#hill-strip" x="1200"/></g>
+  <path d="M0 560Q300 546 600 561T1200 560V800H0Z" fill="#bbd699"/>
+  <g class="plants"><use href="#plant-strip"/><use href="#plant-strip" x="1200"/></g>
+  <path d="M0 615H1200V724H0Z" fill="#b4bdb0"/>
+  <path d="M0 615H1200M0 724H1200" stroke="#edf2d9" stroke-width="5"/>
+  <g class="road"><use href="#road-strip"/><use href="#road-strip" x="1200"/></g>
+  <ellipse cx="557" cy="625" rx="228" ry="13" fill="#294647" opacity=".13"/>
+  <!-- Wheels keep fixed hubs while their spokes rotate. -->
+  <g class="ink" fill="#d8ece0">
+    <circle cx="390" cy="535" r="83" stroke-width="12"/>
+    <circle cx="720" cy="535" r="83" stroke-width="12"/>
+  </g>
+  <g class="wheel rear"><use href="#spokes" x="390" y="535"/></g>
+  <g class="wheel front"><use href="#spokes" x="720" y="535"/></g>
+  <g class="leg leg-back ink" fill="none" stroke="#cc883b" stroke-width="13">
+    <path d="M498 399L520 456L531 516"/>
+    <path d="M521 523H550" stroke-width="15"/>
+    <path d="M519 533H551" stroke="#294647" stroke-width="7"/>
+  </g>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M391 535 475 417 535 525 390 535M475 417 670 410 535 525M661 385 720 535" stroke="#294647" stroke-width="14"/>
+    <path d="M391 535 475 417 535 525 390 535M475 417 670 410 535 525M661 385 720 535" stroke="#e87868" stroke-width="8"/>
+    <path d="M476 419 463 391M661 385 650 359 686 346" stroke="#294647" stroke-width="8"/>
+    <path d="M681 347 703 341" stroke="#476a62" stroke-width="12"/>
+    <path d="M441 391Q466 383 486 391" stroke="#294647" stroke-width="13"/>
+    <path d="M327 479Q389 414 450 475M659 475Q722 414 783 479" stroke="#f4c970" stroke-width="7"/>
+    <path d="M390 535 535 512Q552 514 550 530Q548 543 535 539L390 543Z" stroke="#638984" stroke-width="3"/>
+  </g>
+  <g fill="#f4c970" class="ink"><circle cx="390" cy="535" r="8"/><circle cx="720" cy="535" r="8"/><circle cx="535" cy="525" r="17"/></g>
+  <g class="crank" stroke="#294647" stroke-width="6" stroke-linecap="round"><path d="M510 525H560"/></g>
+  <g class="leg ink" fill="none" stroke="#efad50" stroke-width="14">
+    <path d="M490 391L499 459L531 516"/>
+    <path d="M520 523H551" stroke-width="16"/>
+    <path d="M519 533H552" stroke="#294647" stroke-width="7"/>
+  </g>
+  <g class="bob">
+    <g class="scarf ink" fill="#e87868">
+      <path d="M583 294Q533 293 516 276Q493 281 466 272L478 292 463 303Q509 315 550 305L582 311Z"/>
+      <path d="M505 290Q531 302 552 300" fill="none" stroke="#b85550" stroke-width="3"/>
+    </g>
+    <g class="ink">
+      <path d="M428 350 379 321 398 365 372 352Q383 395 434 397" fill="#ecf2e9"/>
+      <path d="M421 335Q459 316 510 333Q542 344 548 306L550 252Q547 211 582 206Q622 199 635 232Q646 260 624 293Q599 316 604 345Q608 390 565 414Q515 440 458 412Q415 400 412 370Q408 349 421 335Z" fill="#fffdf0"/>
+      <path d="M601 271Q573 305 581 345Q585 394 535 414" fill="none" stroke="#d3e4d8" stroke-width="12"/>
+      <path d="M628 244Q697 237 777 263Q734 277 630 267Z" fill="#f6be57"/>
+      <path d="M631 267 767 266Q730 321 666 312Q636 303 631 267Z" fill="#f1a85b"/>
+      <path d="M649 277Q696 294 743 278" fill="none" stroke="#ffd487" stroke-width="5"/>
+      <path d="M627 244 778 263" fill="none" stroke-width="3"/>
+      <g class="blink"><ellipse cx="611" cy="236" rx="6" ry="9" fill="#294647" stroke="none"/><circle cx="613" cy="233" r="2" fill="white" stroke="none"/></g>
+      <ellipse cx="609" cy="260" rx="10" ry="6" fill="#efa598" stroke="none"/>
+      <path d="M548 230Q539 184 583 181Q622 178 633 214L637 224Z" fill="#5b9e83"/>
+      <path d="M558 204 566 198M580 197 589 195M604 198 611 201" stroke="#2f6756" stroke-width="5"/>
+      <path d="M553 230Q584 242 633 224" fill="none" stroke="#386c59" stroke-width="7"/>
+      <path d="M562 236 573 266 591 272" fill="none" stroke-width="3"/>
+      <rect x="581" y="265" width="13" height="8" rx="3" fill="#294647" stroke="none"/>
+      <path d="M548 289Q569 305 596 295L594 310Q567 318 548 305Z" fill="#e87868"/>
+      <path d="M493 345Q534 342 563 356Q598 372 673 343Q689 339 690 350Q655 386 586 389Q539 409 494 380Q478 370 493 345Z" fill="#fffdf0" class="wing"/>
+      <path d="M445 355Q457 374 473 379M437 373Q447 389 464 394" fill="none" stroke="#d3e4d8" stroke-width="5"/>
+    </g>
+  </g>
+  <g stroke="#fffdf0" stroke-width="4" stroke-linecap="round" opacity=".8">
+    <path d="M304 334H338M282 352H325M309 370H337"/>
+  </g>
+  <g fill="#426352" text-anchor="middle" font-family="Trebuchet MS, Arial, sans-serif">
+    <text x="600" y="769" font-size="14" letter-spacing="0">A little pedal. A lovely day.</text>
+  </g>
+</svg>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Astra - Pelican Ride</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+    body { background: #b9e5df; display: grid; place-items: center; }
+    svg { display: block; width: 100%; height: 100%; }
+    .line { stroke: #28494a; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+    .wheel { animation: spin 1.2s linear infinite; }
+    .rear-wheel { transform-origin: 390px 487px; }
+    .front-wheel { transform-origin: 697px 487px; }
+    .crank { transform-origin: 530px 479px; animation: spin 1.2s linear infinite; }
+    .rider { animation: bob .6s ease-in-out infinite; }
+    .near-leg { animation: pedal-near 1.2s linear infinite; }
+    .far-leg { animation: pedal-far 1.2s linear infinite; }
+    .scarf { transform-origin: 550px 286px; animation: flutter .6s ease-in-out infinite alternate; }
+    .wing { transform-origin: 530px 320px; animation: wing-bob .6s ease-in-out infinite; }
+    .terrain { animation: travel 4s linear infinite; }
+    .hills { animation: travel 24s linear infinite; }
+    .clouds { animation: travel 60s linear infinite; }
+    .bike { animation: bike-bob .6s ease-in-out infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+    @keyframes bike-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-1px); } }
+    @keyframes travel { to { transform: translateX(-1200px); } }
+    @keyframes flutter { from { transform: rotate(-5deg); } to { transform: rotate(7deg); } }
+    @keyframes wing-bob { 50% { transform: rotate(-3deg); } }
+    @keyframes pedal-near {
+      0%,100% { transform: translate(0,0); }
+      25% { transform: translate(25px,25px); }
+      50% { transform: translate(0,50px); }
+      75% { transform: translate(-25px,25px); }
+    }
+    @keyframes pedal-far {
+      0%,100% { transform: translate(0,0); }
+      25% { transform: translate(-25px,-25px); }
+      50% { transform: translate(0,-50px); }
+      75% { transform: translate(25px,-25px); }
+    }
+  </style>
+</head>
+<body>
+  <svg viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title description">
+    <title id="title">Astra: a pelican on a bicycle</title>
+    <desc id="description">A cheerful white pelican with a coral scarf pedals a mint bicycle beside the sea. Its legs pedal, wheels spin, body bobs, and the scenery scrolls past.</desc>
+    <defs>
+      <g id="cloud" fill="#f5fff8">
+        <path d="M0 38C-8 19 12 5 28 14C34-9 70-5 77 16C101 4 119 19 115 38Z"/>
+      </g>
+      <g id="hill-strip">
+        <path d="M0 442Q130 323 287 411Q400 295 610 417Q787 334 942 414Q1090 337 1200 442V530H0Z" fill="#81c4b3"/>
+        <path d="M0 475Q190 400 375 476Q557 375 756 464Q988 396 1200 475V535H0Z" fill="#a8d2a6"/>
+      </g>
+      <g id="road-strip">
+        <path d="M30 624H99M268 624H337M506 624H575M744 624H813M982 624H1051" fill="none" stroke="#fff7dc" stroke-width="7" stroke-linecap="round"/>
+        <g stroke="#589c78" stroke-width="4" stroke-linecap="round" fill="none">
+          <path d="M90 551l-6-12m6 12 7-9M310 568l-5-12m5 12 8-8M816 555l-7-12m7 12 7-9M1100 569l-4-11m4 11 8-9"/>
+        </g>
+        <g fill="#fff5d1"><circle cx="186" cy="559" r="4"/><circle cx="625" cy="544" r="4"/><circle cx="941" cy="572" r="4"/></g>
+      </g>
+      <g id="wheel">
+        <circle r="91" fill="#e3f3dc" fill-opacity=".4" stroke="#28494a" stroke-width="14"/>
+        <circle r="79" fill="none" stroke="#fff9e5" stroke-width="5"/>
+        <g stroke="#5b8c86" stroke-width="3">
+          <path d="M0-76V76M-76 0H76M-54-54 54 54M-54 54 54-54"/>
+        </g>
+        <circle r="12" fill="#fff4d7" stroke="#28494a" stroke-width="5"/>
+        <path d="M-39-66A76 76 0 0 1-20-73" fill="none" stroke="#f4b24b" stroke-width="7" stroke-linecap="round"/>
+      </g>
+    </defs>
+
+    <path fill="#c8ece5" d="M0 0H1200V720H0Z"/>
+    <circle cx="980" cy="130" r="56" fill="#fff0ac"/>
+    <circle cx="961" cy="123" r="3" fill="#c99b51"/>
+    <circle cx="987" cy="123" r="3" fill="#c99b51"/>
+    <path d="M966 137q10 9 19-1" stroke="#c99b51" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <g class="clouds">
+      <g><use href="#cloud" x="100" y="110"/><use href="#cloud" x="480" y="70"/><use href="#cloud" x="820" y="235"/></g>
+      <g transform="translate(1200)"><use href="#cloud" x="100" y="110"/><use href="#cloud" x="480" y="70"/><use href="#cloud" x="820" y="235"/></g>
+    </g>
+    <path fill="#84cfc9" d="M0 365H1200V515H0Z"/>
+    <g stroke="#dcf6e9" stroke-width="3" stroke-linecap="round" opacity=".7">
+      <path d="M56 389h95m218 10h86m293-12h83m238 19h107M150 424h103m318 12h98m225-13h102"/>
+    </g>
+    <g class="hills"><use href="#hill-strip"/><use href="#hill-strip" x="1200"/></g>
+    <path d="M0 528H1200V720H0Z" fill="#badd9b"/>
+    <path d="M0 590H1200V673H0Z" fill="#829a91"/>
+    <path d="M0 590H1200M0 673H1200" stroke="#e4efd0" stroke-width="5"/>
+    <g class="terrain"><use href="#road-strip"/><use href="#road-strip" x="1200"/></g>
+    <ellipse cx="545" cy="586" rx="240" ry="15" fill="#518577" opacity=".18"/>
+
+    <g class="bike">
+      <g class="rear-wheel"><use href="#wheel" x="390" y="487"/></g>
+      <g class="front-wheel"><use href="#wheel" x="697" y="487"/></g>
+
+      <!-- The rear foot follows the opposite half of the crank orbit. -->
+      <g class="far-leg line" fill="none" stroke="#bf852d">
+        <path d="M493 376 505 437 521 488" stroke-width="13"/>
+        <path d="M520 500h28q9 0 9 7h-40Z" fill="#df9a36" stroke-width="4"/>
+        <path d="M514 509h34" stroke="#28494a" stroke-width="7"/>
+      </g>
+      <g class="line" fill="none">
+        <path d="M390 487 476 386 530 479 390 487 476 386 654 386 530 479" stroke="#28494a" stroke-width="15"/>
+        <path d="M390 487 476 386 530 479 390 487M476 386H654L530 479" stroke="#51b7a6" stroke-width="9"/>
+        <path d="M697 487 651 373 649 337Q650 324 671 326" stroke-width="10"/>
+        <path d="M697 487 655 384" stroke="#70cbbb" stroke-width="5"/>
+        <path d="M476 386 466 355" stroke-width="9"/>
+        <path d="M442 355h50" stroke-width="14"/>
+        <path d="M663 325h22" stroke="#dc6f58" stroke-width="12"/>
+        <path d="M313 439Q380 372 453 433M634 422Q711 372 776 439" stroke="#e6f4da" stroke-width="8"/>
+      </g>
+      <circle cx="530" cy="479" r="20" fill="#f4ead0" class="line" stroke-width="4"/>
+      <g class="crank" stroke="#28494a" stroke-width="7" stroke-linecap="round">
+        <path d="M530 454V504"/>
+      </g>
+      <g class="near-leg line">
+        <path d="M482 369Q472 408 508 423L525 449" fill="none" stroke="#efa936" stroke-width="15"/>
+        <path d="M521 447q15-3 25 6l12 7q2 5-4 5h-37Z" fill="#ffbf45" stroke-width="4"/>
+        <path d="M515 469h34" fill="none" stroke-width="7"/>
+      </g>
+
+      <g class="rider">
+        <path d="M457 320q-55-6-78-37 0 41 48 65" fill="#f4f5e5" class="line"/>
+        <path d="M443 297C471 280 498 276 521 252L550 205C564 184 593 197 593 221C589 256 570 282 561 303C582 334 565 367 533 379C495 398 445 384 426 360C411 339 419 312 443 297Z" fill="#fffdf0" class="line"/>
+        <path d="M430 353q51 44 115 8c-20 32-87 43-115-8" fill="#dbe6dc"/>
+        <path d="M548 215C531 194 536 158 559 145C585 128 618 141 625 162C632 182 624 206 605 218" fill="#fffdf0" class="line"/>
+        <path d="M558 145l-4-15m15 11 3-17m7 15 8-11" fill="none" class="line" stroke-width="4"/>
+        <!-- A broad hanging pouch makes the long bill distinctly pelican-like. -->
+        <path d="M603 183 739 196Q706 253 647 237Q612 227 603 183Z" fill="#f8c66b" class="line"/>
+        <path d="M607 179Q652 169 750 190Q757 194 747 200L606 197Z" fill="#ffb943" class="line"/>
+        <path d="M626 207q21 25 57 21" fill="none" stroke="#e6a34b" stroke-width="4" stroke-linecap="round"/>
+        <ellipse cx="593" cy="167" rx="6" ry="9" fill="#28494a"/>
+        <circle cx="595" cy="164" r="2" fill="white"/>
+        <ellipse cx="583" cy="190" rx="12" ry="7" fill="#efb1a0"/>
+        <path d="M580 150q7-5 14-1" fill="none" stroke="#28494a" stroke-width="3" stroke-linecap="round"/>
+        <g class="scarf">
+          <path d="M551 273q-33 6-73-10l8 22-19 10q42 10 85-7" fill="#e97768" class="line" stroke-width="4"/>
+          <path d="m490 277 34 7" stroke="#ffc6a1" stroke-width="4" stroke-linecap="round"/>
+        </g>
+        <path d="M549 264q15 12 28 8l-8 20q-15 2-28-9Z" fill="#ef8270" class="line" stroke-width="4"/>
+        <g class="wing">
+          <path d="M466 316C484 299 512 306 537 319Q587 332 644 319Q659 321 648 334C610 354 553 354 511 347Q484 357 466 338" fill="#eff1e4" class="line"/>
+          <path d="M481 325q12 13 31 11m-24-17q12 11 28 11" stroke="#b2c6ba" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </g>
+      </g>
+      <circle cx="653" cy="326" r="8" fill="#f6c363" stroke="#28494a" stroke-width="3"/>
+    </g>
+    <g fill="#28494a" font-family="Verdana, sans-serif" text-anchor="middle">
+      <text x="600" y="65" font-size="15" letter-spacing="0">A S T R A</text>
+      <text x="600" y="699" font-size="12" opacity=".65">a little ride, a lovely day</text>
+    </g>
+  </svg>
+</body>
+</html>
